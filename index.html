@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: #282828;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    select {
+      width: 100%;
+      height: 50px;
+      margin: 20px 0;
+      padding: 0 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      background-color: #444;
+      color: #fff;
+      appearance: none;
+    }
+
+    .dropdown {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .dropdown.active {
+      opacity: 1;
+    }
+
+    #download-links {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    #download-links img {
+      width: 50px;
+      height: 50px;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    #download-links img:hover {
+      transform: scale(1.1);
+    }
+    
+ .video-thumbnail {
+      display: none;
+      width: 100%;
+      height: auto;
+      max-width: 560px;
+      max-height: 315px;
+      margin: 20px auto;
+      
+    }
+
+    .video-thumbnail.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>How can I help you?</h1>
+    <select id="menu1">
+      <option value="null">Select a Category</option>
+      <option value="templates">Templates/Checklists</option>
+      <option value="modules">Training Modules</option>
+    </select>
+
+    <div id="templates" class="dropdown">
+      <h2>Select a Template/Checklist</h2>
+      <select id="template-select">
+        <option value="null">Select a Template</option>
+        <option value="operation">Operation and Maintenance Plan Template</option>
+        <option value="facility">Facility Inventory Template</option>
+        <option value="stockpiles">Stockpiles/Storage and Material Handling Inspection Checklist</option>
+        <option value="municipal">Municipal Operations (Fleet/Public Works) Inspection Checklist</option>
+        <option value="green">Green Infrastructure Inspection Checklist</option>
+        <option value="employee">Employee Training Tracking Template</option>
+        <option value="ms4">MS4 Documentation Retention Tracking Template</option>
+        <option value="annual">Annual Report Metric Tracking Template</option>
+        <option value="structural">Structural Stormwater BMP Inspection Checklist</option>
+        <option value="nonstructural">Nonstructural Stormwater BMP Inspection Checklist</option>
+        <option value="outfall">Outfall Inspection Checklist</option>
+      </select>
+
+      <div id="download-links">
+        <a href="#"><img src="https://i.imgur.com/xKIcnKd.png" alt="PDF Icon" /></a>
+        <a href="#"><img src="https://i.imgur.com/JB0DEgq.png" alt="Word Icon" /></a>
+        <a href="#"><img src="https://i.imgur.com/cZfqkB6.png" alt="Excel Icon" /></a>
+      </div>
+    </div>
+
+    <div id="modules" class="dropdown">
+      <h2>Select a Training Module</h2>
+      <select id="module-select">
+        <option value="null">Select a Module</option>
+        <option value="msds">MSDS/SDS Basics (Video)</option>
+        <option value="spill">Spill Response Procedures (Video)</option>
+        <option value="inventory">How to Conduct a Facility Inventory (Video)</option>
+        <option value="parks">Maintenance Procedures for Parks and Open Spaces (Video)</option>
+        <option value="fleet">Maintenance Procedures for Fleet and Buildings (Video)</option>
+        <option value="construction">Maintenance Procedures for New Construction and Land Disturbance (Video)</option>
+        <option value="stormwater">Maintenance Procedures for Stormwater Systems (Video)</option>
+        <option value="structural-bmp">What/How to Inspect - Structural Stormwater BMPs (Video)</option>
+        <option value="nonstructural-bmp">What/How to Inspect - Nonstructural Stormwater BMPs (Video)</option>
+        <option value="outfalls">What/How to Inspect - Outfalls (Video)</option>
+        <option value="stockpiles">What/How to Inspect - Stockpiles/Storage and Material Handling (Video)</option>
+        <option value="municipal">What/How to Inspect - Municipal Operations (Fleet/Public Works) (Video)</option>
+      </select>
+
+      <img id="video-thumbnail" src="https://i.imgur.com/dqe8COg.png" alt="Video Thumbnail" class="video-thumbnail" />
+    </div>
+  </div>
+
+  <script>
+    const menu1 = document.querySelector('#menu1');
+    const templatesDiv = document.querySelector('#templates');
+    const modulesDiv = document.querySelector('#modules');
+    const templateSelect = document.querySelector('#template-select');
+    const moduleSelect = document.querySelector('#module-select');
+    const downloadLinks = document.querySelector('#download-links');
+    const videoThumbnail = document.querySelector('#video-thumbnail');
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    menu1.addEventListener('change', (e) => {
+      dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+      downloadLinks.style.display = 'none';
+      videoThumbnail.classList.remove('active');
+
+      switch(e.target.value) {
+        case 'templates':
+          templatesDiv.classList.add('active');
+          break;
+        case 'modules':
+          modulesDiv.classList.add('active');
+          break;
+      }
+    });
+
+    templateSelect.addEventListener('change', (e) => {
+      if(e.target.value !== 'null') {
+        downloadLinks.style.display = 'flex';
+      } else {
+        downloadLinks.style.display = 'none';
+      }
+    });
+
+    moduleSelect.addEventListener('change', (e) => {
+      if(e.target.value === 'spill') {
+        videoThumbnail.classList.add('active');
+      } else {
+        videoThumbnail.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
